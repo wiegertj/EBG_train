@@ -12,7 +12,7 @@ import pandas as pd
 
 
 if __name__ == '__main__':
-    raw_path = os.path.join(parent_of_parent_dir, "data", "raw")
+    raw_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "EBG_train","data", "raw")
     folder_names = [folder for folder in os.listdir(raw_path) if os.path.isdir(os.path.join(raw_path, folder))]
     counter = 0
     results_final = []
