@@ -25,13 +25,16 @@ This repository contains the data and code used to train and evaluate EBG.
 └─────── raw => all datasets (MSA, tree, model file and bootstrap results) as .tar.gz-file      
 ```
 ## Code
-### Feature Generation
+### 0. Decompression
+The raw datasets used for training and testing at data are compressed in a tar.gz-file. For further processing ```cd``` into the data directory and perform ```tar -xf datasets.tar.gz```.
+This creates the subdirector data/raw with all dataset folders including the raw data (MSA, tree file, model file, bootstrap files).
+### 1. Feature Generation
 
-### Target Calculation
+### 2. Target Calculation
 
-### Training Dataset Creation
+### 3. Training Dataset Creation
 
-### Training
+### 4. Training
 
 
 ### References
