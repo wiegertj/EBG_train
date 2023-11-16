@@ -5,6 +5,7 @@ import subprocess
 import sys
 import pandas as pd
 import networkx as nx
+
 os.environ["NUMEXPR_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
 os.environ["OMP_NUM_THREADS"] = "1"
@@ -56,6 +57,7 @@ class FeatureComputer:
        compute_parsimony_bootstrap_support(self):
             Computes parsimony bootstrap support itself
         """
+
     def __init__(self, msa_filepath, tree_filepath, model_filepath, output_prefix, raxml_ng_path, redo):
         self.msa_filepath = msa_filepath
         self.model_filepath = model_filepath
@@ -302,7 +304,7 @@ class FeatureComputer:
                                                   "std_split_hop_distance_ratio", "mean_split_branch_length_ratio",
                                                   "std_split_branch_length_ratio"])
 
-    def compute_parsimony_support_features(self, support_path):
+    def compute_parsimony_support_features(self, support_path) -> pd.DataFrame:
         """
         Computes multiple summary statistics over the parsimony support of inner branches.
 
@@ -377,7 +379,7 @@ class FeatureComputer:
                                               "std_pars_support_children", "number_children_relative",
                                               "mean_pars_support_children_weighted"])
 
-    def compute_parsimony_support(self):
+    def compute_parsimony_support(self) -> pd.DataFrame:
         """
         Calls RAxML-NG for creating 1000 parsimony starting trees, then it computes the support induced by them on the tree at self.tree_filepath
 
@@ -419,7 +421,7 @@ class FeatureComputer:
         return self.compute_parsimony_support_features(
             os.path.abspath(parsimonies_filepath.replace("startTree", "support")))
 
-    def compute_parsimony_bootstrap_support_features(self, support_path):
+    def compute_parsimony_bootstrap_support_features(self, support_path) -> pd.DataFrame:
         """
         Computes multiple features from the parsimony bootstrap support file
 
@@ -484,7 +486,7 @@ class FeatureComputer:
                                      "min_pars_bootstrap_support_children_w", "max_pars_bootstrap_support_children_w",
                                      "std_pars_bootstrap_support_children"])
 
-    def compute_parsimony_bootstrap_support(self):
+    def compute_parsimony_bootstrap_support(self) -> pd.DataFrame:
         """
         Performs the parsimony bootstrap. Samples alignment sites with replacement 200 times. For each samples MSA
         RAxML-NG is called to infer the corresponding parsimony starting tree. Stores those trees in a final file.
@@ -536,7 +538,6 @@ class FeatureComputer:
             ]
 
             subprocess.run(raxml_command, shell=False)
-
 
             result_tree_path = os.path.join(os.curdir, output_prefix + ".raxml.startTree")
 

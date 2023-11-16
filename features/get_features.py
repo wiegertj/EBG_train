@@ -9,6 +9,12 @@ import pandas as pd
 
 
 if __name__ == '__main__':
+    """
+    This code triggers the feature extraction process. 
+    It iterates through each folder in data/raw, calculates all features and stores them in a folder named like
+    the dataset at data/processed/features.
+    Finally it creates the features.csv in data/processed.
+    """
     raw_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"data", "raw")
     folder_names = [folder for folder in os.listdir(raw_path) if os.path.isdir(os.path.join(raw_path, folder))]
     counter = 0

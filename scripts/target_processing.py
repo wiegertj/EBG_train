@@ -7,7 +7,21 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 
-def calculate_support_statistics(support_file_path, dataset_name):
+def calculate_support_statistics(support_file_path, dataset_name) -> list:
+    """
+    Function for extracting the SBS values from the datasets at data/raw.
+    The branches are numbered by ete3 default traversing strategy 'level-order'.
+    Support values are stored as fractions.
+    Stores the final target file at data/processed/target/branch_supports.csv.
+
+            Parameters:
+                    :param support_file_path: path to the support file to process
+                    :param dataset_name: name of the dataset to store in the result file
+
+            Returns:
+                    :return list of (str, str, float): list of tuples: (dataset_name, branchId, sbs fraction)
+
+    """
     results = []
     with open(support_file_path, "r") as support_file:
         tree_str = support_file.read()
