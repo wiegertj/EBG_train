@@ -1,7 +1,7 @@
 import sys
 import os
-os.chdir(os.path.dirname(__file__))
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert( 0 , os.path.dirname( __file__ ) )
+
 from EBG_train.features.feature_extractor import FeatureExtractor
 import os
 import pandas as pd
