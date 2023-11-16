@@ -1,12 +1,13 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath("."))
+sys.path.insert(0, os.path.abspath(".."))
 from EBG_train.features.feature_extractor import FeatureExtractor
 import os
 import pandas as pd
 
 
 if __name__ == '__main__':
+    os.chdir(os.path.dirname(__file__))
     raw_path = os.path.join(os.path.pardir, "data", "raw")
     folder_names = [folder for folder in os.listdir(raw_path) if os.path.isdir(os.path.join(raw_path, folder))]
     counter = 0
