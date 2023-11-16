@@ -8,7 +8,7 @@ This repository contains the data and code used to train and evaluate EBG.
 ## Data
 ```
 ├── data
-│   └── comparison_results <em><strong>contains all cpu/wall-clock time comparison data</strong></em>
+│   └── comparison_results => contains all cpu/wall-clock time comparison data
 │       ├── cpu_times
 │       │   └── test_times.csv
 │       └── wall_clock_times 
@@ -17,12 +17,12 @@ This repository contains the data and code used to train and evaluate EBG.
 │           ├── benchmark_raxmlng_ml_searches.csv
 │           ├── benchmark_sbs.csv
 │           └── benchmark_times_ufboot2.csv
-├─────── models <em><strong>final models of EBG</strong></em>
-├─────── processed <em><strong>computed features, bootstrap targets and training dataset</strong></em>     
+├─────── models => final models of EBG
+├─────── processed => computed features, bootstrap targets and training dataset
 │        ├── features
 │        ├── final
 │        └── target 
-└─────── raw <em><strong>all datasets (MSA, tree, model file and bootstrap results) as .tar.gz-file </strong></em>             
+└─────── raw => all datasets (MSA, tree, model file and bootstrap results) as .tar.gz-file      
 ```
 ## Usage Example
 A simple command line call of EBG looks like this:
