@@ -1,7 +1,8 @@
 import sys
 import os
-sys.path.insert( 0 , os.path.dirname( __file__ ) )
-
+current_script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_script_dir)
+sys.path.insert(0, parent_dir)
 from EBG_train.features.feature_extractor import FeatureExtractor
 import os
 import pandas as pd
