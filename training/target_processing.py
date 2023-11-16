@@ -2,6 +2,7 @@ import warnings
 from ete3 import Tree
 import pandas as pd
 import os
+
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -19,6 +20,7 @@ def calculate_support_statistics(support_file_path, dataset_name):
             results.append((dataset_name, node.name, node.support / 100))
     return results
 
+
 if __name__ == '__main__':
 
     raw_path = os.path.join(os.path.pardir, "data", "raw")
@@ -28,7 +30,7 @@ if __name__ == '__main__':
     for file in folder_names:
         support_path = os.path.join(raw_path, file, file + "_1000.raxml.support")
 
-        counter +=1
+        counter += 1
         if counter % 100 == 0:
             print(f"{counter} / {len(folder_names)}")
         if os.path.exists(support_path):
