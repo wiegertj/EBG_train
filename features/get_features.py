@@ -1,9 +1,8 @@
 import sys
 import os
-current_script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Get the parent of the parent directory
-parent_of_parent_dir = os.path.dirname(os.path.dirname(current_script_dir))
+parent_of_parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Add the parent of the parent directory to sys.path
 sys.path.insert(0, parent_of_parent_dir)
@@ -13,7 +12,7 @@ import pandas as pd
 
 
 if __name__ == '__main__':
-    raw_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..data", "raw")
+    raw_path = os.path.join(parent_of_parent_dir, "data", "raw")
     folder_names = [folder for folder in os.listdir(raw_path) if os.path.isdir(os.path.join(raw_path, folder))]
     counter = 0
     results_final = []
