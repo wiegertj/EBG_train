@@ -26,8 +26,9 @@ if __name__ == '__main__':
     counter = 0
     results_final = []
     for file in folder_names:
-        print(support_path)
         support_path = os.path.join(raw_path, file + "_1000.raxml.support")
+        print(support_path)
+
         counter +=1
         if counter % 100 == 0:
             print(f"{counter} / {len(folder_names)}")
