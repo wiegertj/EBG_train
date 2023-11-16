@@ -62,7 +62,7 @@ class FeatureComputer:
         self.tree_filepath = tree_filepath
         self.current_directory = os.path.abspath(os.curdir)
         self.output_prefix = output_prefix
-        self.raxml_path == "raxml-ng"
+        self.raxml_path = raxml_ng_path
 
         tmp_folder_path = os.path.abspath(os.path.join(os.curdir, output_prefix))
 
