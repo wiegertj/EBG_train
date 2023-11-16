@@ -1,8 +1,12 @@
 import sys
 import os
 current_script_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_script_dir)
-sys.path.insert(0, parent_dir)
+
+# Get the parent of the parent directory
+parent_of_parent_dir = os.path.dirname(os.path.dirname(current_script_dir))
+
+# Add the parent of the parent directory to sys.path
+sys.path.insert(0, parent_of_parent_dir)
 from EBG_train.features.feature_extractor import FeatureExtractor
 import os
 import pandas as pd
