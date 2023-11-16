@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.abspath("."))
 from EBG_train.features.feature_extractor import FeatureExtractor
 import os
 import pandas as pd
