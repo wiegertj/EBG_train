@@ -23,7 +23,7 @@ if __name__ == '__main__':
         tree_path = os.path.abspath(os.path.join(raw_path, file, file + ".newick"))
         model_path = os.path.abspath(os.path.join(raw_path, file, file + "_model.txt"))
 
-        os.chdir(os.path.abspath(os.path.join(os.path.pardir, "data", "processed", "features")))
+        os.chdir(os.path.abspath(os.path.join(os.path.pardir)))
         extractor = FeatureExtractor(msa_path, tree_path, model_path, file, "raxml-ng", True)
         print(f"Finished computation: {counter} / {len(folder_names)}")
 
