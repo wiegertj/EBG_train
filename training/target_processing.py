@@ -23,13 +23,13 @@ if __name__ == '__main__':
 
     raw_path = os.path.join(os.path.pardir, "data", "raw")
     folder_names = [folder for folder in os.listdir(raw_path) if os.path.isdir(os.path.join(raw_path, folder))]
-    print(folder_names)
     counter = 0
     results_final = []
     for file in folder_names:
         support_path = os.path.join(raw_path, file + "_1000.raxml.support")
         counter +=1
-        print(f"{counter} / {len(folder_names)}")
+        if counter % 100 == 0:
+            print(f"{counter} / {len(folder_names)}")
         if os.path.exists(support_path):
             results_tmp = calculate_support_statistics(support_path, file.replace(".newick", ""))
             results_final.extend(results_tmp)
