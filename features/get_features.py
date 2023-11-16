@@ -25,7 +25,7 @@ if __name__ == '__main__':
         print(f"Finished computation: {counter} / {len(folder_names)}")
 
         features = extractor.extract_features()
-        features.to_csv(os.path.join(os.getcwd()), "features.csv")
+        features.to_csv(os.path.join(os.getcwd(), "features.csv"), index=False)
         results_final.append(features)
 
         current_working_dir = os.getcwd()
