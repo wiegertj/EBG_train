@@ -20,7 +20,8 @@ if __name__ == '__main__':
 
         features = extractor.extract_features()
         results_final.append(features)
-        break
+        if counter == 2:
+            break
     results_final_df = pd.concat(results_final)
     results_final_df = results_final_df.reset_index(drop=True)
     results_final_df.to_csv(os.path.join(os.path.pardir, "data", "processed", "features"))
