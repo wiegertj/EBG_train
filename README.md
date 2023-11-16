@@ -24,14 +24,16 @@ This repository contains the data and code used to train and evaluate EBG.
 │        └── target 
 └─────── raw => all datasets (MSA, tree, model file and bootstrap results) as .tar.gz-file      
 ```
-## Usage Example
-A simple command line call of EBG looks like this:
-```
-ebg -msa /test/example.fasta -tree /test/example.bestTree -model /test/example.bestModel -t b -o test 
-```
-This command will use the MSA in fasta format, and the best tree inferred with RAxML-NG and the model.
-By selecting ```-t b```(oth) EBG will ouput the bootstrap predictions as well as the probabilities for exceeding different bootstrap thresholds (70, 75, 80, 85). 
-The results will be stored in a folder called test.
+## Code
+### Feature Generation
+
+### Target Calculation
+
+### Training Dataset Creation
+
+### Training
+
+
 ### References
 * A. M. Kozlov, D. Darriba, T. Flouri, B. Morel, and A. Stamatakis (2019) 
 **RAxML-NG: a fast, scalable and user-friendly tool for maximum likelihood phylogenetic inference** 
