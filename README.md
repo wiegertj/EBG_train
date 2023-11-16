@@ -6,6 +6,7 @@ This repository contains the data and code used to train and evaluate EBG.
 
 
 ## Data
+```
 ├── data
 │   └── comparison_results <em><strong>contains all cpu/wall-clock time comparison data</strong></em>
 │       ├── cpu_times
@@ -22,7 +23,7 @@ This repository contains the data and code used to train and evaluate EBG.
 │        ├── final
 │        └── target 
 └─────── raw <em><strong>all datasets (MSA, tree, model file and bootstrap results) as .tar.gz-file </strong></em>             
-
+```
 ## Usage Example
 A simple command line call of EBG looks like this:
 ```
