@@ -14,7 +14,7 @@ from scipy.stats import entropy
 
 
 def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10):
-    df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final_dataset.csv"))
+    df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final.csv"))
     """
     This functions trains the classifier to solve the binary classification problem between the class 0 
     (SBS value does not exceed threshold) and the class 1 (it does). 
