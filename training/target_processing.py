@@ -36,4 +36,4 @@ if __name__ == '__main__':
             results_final.extend(results_tmp)
 
     df_final = pd.DataFrame(results_final, columns=["dataset", "branchId", "support"])
-    df_final.to_csv(os.path.join(os.pardir, "data/processed/target/branch_supports.csv"))
+    df_final.to_csv(os.path.join(os.pardir, "data/processed/target/branch_supports.csv"), index=False)
