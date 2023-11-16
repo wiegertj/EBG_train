@@ -68,7 +68,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20):
     rfe_feature_n : int
         number of features for recursive feature elimination
     """
-    df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "bs_support.csv"),
+    df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final_dataset.csv"),
                      usecols=lambda column: column != 'Unnamed: 0')
 
     df = df[["dataset", "branchId", "support", "parsimony_boot_support",
