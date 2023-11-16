@@ -30,4 +30,4 @@ if __name__ == '__main__':
             break
     results_final_df = pd.concat(results_final)
     results_final_df = results_final_df.reset_index(drop=True)
-    results_final_df.to_csv(os.path.join(os.path.pardir, "data", "processed", "features.csv"))
+    results_final_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "processed", "features.csv"))
