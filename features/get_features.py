@@ -19,14 +19,13 @@ if __name__ == '__main__':
     results_final = []
     for file in folder_names:
         counter += 1
-        if counter % 10 == 0:
-            print(f"Finished computation: {counter} / {len(folder_names)}")
         msa_path = os.path.abspath(os.path.join(raw_path, file, file + "_msa.fasta"))
         tree_path = os.path.abspath(os.path.join(raw_path, file, file + ".newick"))
         model_path = os.path.abspath(os.path.join(raw_path, file, file + "_model.txt"))
 
-        os.chdir(os.path.join(os.path.pardir, "data", "processed", "features"))
+        os.chdir(os.path.abspath(os.path.join(os.path.pardir, "data", "processed", "features")))
         extractor = FeatureExtractor(msa_path, tree_path, model_path, file, "raxml-ng", True)
+        print(f"Finished computation: {counter} / {len(folder_names)}")
 
         features = extractor.extract_features()
         results_final.append(features)
