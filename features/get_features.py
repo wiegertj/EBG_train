@@ -26,6 +26,14 @@ if __name__ == '__main__':
 
         features = extractor.extract_features()
         results_final.append(features)
+
+        current_working_dir = os.getcwd()
+
+        # Get the parent directory
+        parent_dir = os.path.dirname(current_working_dir)
+
+        # Change the current working directory to the parent directory
+        os.chdir(parent_dir)
         if counter == 2:
             break
     results_final_df = pd.concat(results_final)
