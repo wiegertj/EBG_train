@@ -1,7 +1,5 @@
-import time
 import os
-from EBG_train.features.feature_computer import FeatureComputer
-
+from ..features.feature_computer import FeatureComputer
 
 
 class FeatureExtractor:
@@ -28,11 +26,13 @@ class FeatureExtractor:
            extract_features(self):
                triggers feature computation in the right order, merges result and tracks execution time
            """
+
     def __init__(self, msa_file_path, tree_file_path, model_file_path, output_prefix, raxml_ng_path, redo):
         self.msa_file_path = msa_file_path
         self.tree_file_path = tree_file_path
         self.model_file_path = model_file_path
-        self.feature_computer = FeatureComputer(msa_file_path, tree_file_path, model_file_path, output_prefix, raxml_ng_path, redo)
+        self.feature_computer = FeatureComputer(msa_file_path, tree_file_path, model_file_path, output_prefix,
+                                                raxml_ng_path, redo)
         self.current_directory = os.path.abspath(os.curdir)
 
     def extract_features(self):

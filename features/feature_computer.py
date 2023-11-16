@@ -17,7 +17,7 @@ from Bio import AlignIO, SeqRecord, Seq, SeqIO
 from Bio.Align import MultipleSeqAlignment
 from ete3 import Tree
 from scipy.stats import entropy, skew
-from EBG_train.features.parsimony_substitution_counter import count_subst_freqs
+from ..features.parsimony_substitution_counter import count_subst_freqs
 
 
 class FeatureComputer:

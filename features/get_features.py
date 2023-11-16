@@ -1,6 +1,4 @@
-import sys
-sys.path.append("/hits/fast/cme/wiegerjs/EBG_train_test")
-from EBG_train.features.feature_extractor import FeatureExtractor
+from ..features.feature_extractor import FeatureExtractor
 import os
 import pandas as pd
 
