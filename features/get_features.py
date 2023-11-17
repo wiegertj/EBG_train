@@ -38,4 +38,4 @@ if __name__ == '__main__':
 
     results_final_df = pd.concat(results_final)
     results_final_df = results_final_df.reset_index(drop=True)
-    results_final_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "processed", "features.csv"), index=False)
+    results_final_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "processed", "features", "features.csv"), index=False)
