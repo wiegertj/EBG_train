@@ -29,7 +29,7 @@ This repository contains the data and code used to train and evaluate EBG.
 ### 0. Decompression
 **Precomputed Training Datatset**
 _________________________________________________________________________________________________________________________________________________________________________________________
-The current training dataset is stored in [here](./data/processed/final/final.tat.gz) /data/processed/final/final.csv as tarball. For further processing ```cd``` into the data directory and perform ```tar -xf final.tar.gz```.\
+The current training dataset is stored in [here](./data/processed/final/final.tar.gz) /data/processed/final/final.csv as tarball. For further processing ```cd``` into the data directory and perform ```tar -xf final.tar.gz```.\
 With this dataset you can directly move to step 4. Training.\
 **From Scratch**
 _________________________________________________________________________________________________________________________________________________________________________________________
