@@ -26,22 +26,22 @@ This repository contains the data and code used to train and evaluate EBG.
 └─────── raw => all datasets (MSA, tree, model file and bootstrap results) as .tar.gz-file      
 ```
 ## Running EBG Training
-### 0. Decompression
+### 0. Preparation
 _________________________________________________________________________________________________________________________________________________________________________________________
-**Precomputed Training Datatset**\
+**OPTION 1: Use precomputed training data**\
 The current training dataset is stored in [/data/processed/final/final.tar.gz](./data/processed/final/final.tar.gz) as tarball. For further processing ```cd``` into the data directory and perform ```tar -xf final.tar.gz```.\
 With this dataset you can directly move to step [4. Training](#4.-training).\
 \
 \
-**From Scratch**\
+**OPTION 2: Calculate everything from scratch**\
 If you want to calculate the features and targets from scratch you need to decompress the raw data.\
 The raw datasets used for training and testing at /data are compressed in a tar.gz-file. For further processing ```cd``` into the data directory and perform ```tar -xf datasets.tar.gz```.\
 This creates the subdirector /data/raw with all dataset folders including the raw data (MSA, tree file, model file, bootstrap files) which will be used for feature and target calculation.
 ### 1. Feature Generation
 _________________________________________________________________________________________________________________________________________________________________________________________
-**Precomputed Features**
+**OPTION 1: Use precomputed features**
 If you want to use precomuted features you can find a tarball [/data/processed/features/features.tar.gz](./data/processed/features/features.tar.gz). You have to decompress it using ```cd``` into the data directory and perform ```tar -xf fetures.tar.gz```.\
-**From Scratch**
+**OPTION 2: Calculate features from scratch**
 First, you need to ```cd``` into the /features folder. Then perform ```python get_features.py``` from the command line. Since this is computing over 1400 sets of features, it might take a while.\
 The code creates a folder for each dataset [/data/processed/features](./data/processed/features) including all temporary data as well as the final feature dataset features.csv. Furthermore, after computing all datasets, the features.csv at /data/processed/features contains the training features of all datasets.
 ### 2. Target Calculation
