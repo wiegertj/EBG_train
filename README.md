@@ -6,6 +6,7 @@ This repository contains the data and code used to train and evaluate EBG.
 
 
 ## Data
+### Data Overview
 ```
 ├── data
 │   └── comparison_results => contains all cpu/wall-clock time comparison data
@@ -24,14 +25,14 @@ This repository contains the data and code used to train and evaluate EBG.
 │        └── target 
 └─────── raw => all datasets (MSA, tree, model file and bootstrap results) as .tar.gz-file      
 ```
-## Code
+## Running EBG Training
 ### 0. Decompression
 **Precomputed Training Datatset**
-The current training dataset is stored in /data/processed/final/final.csv as tarball. For further processing ```cd``` into the data directory and perform ```tar -xf final.tar.gz```.
+The current training dataset is stored in /data/processed/final/final.csv as tarball. For further processing ```cd``` into the data directory and perform ```tar -xf final.tar.gz```.\
 With this dataset you can directly move to step 4. Training.
 **From Scratch**
-If you want to calculate the features and targets from scratch you need to decompress the raw data.
-The raw datasets used for training and testing at /data are compressed in a tar.gz-file. For further processing ```cd``` into the data directory and perform ```tar -xf datasets.tar.gz```.
+If you want to calculate the features and targets from scratch you need to decompress the raw data.\
+The raw datasets used for training and testing at /data are compressed in a tar.gz-file. For further processing ```cd``` into the data directory and perform ```tar -xf datasets.tar.gz```.\
 This creates the subdirector /data/raw with all dataset folders including the raw data (MSA, tree file, model file, bootstrap files) which will be used for feature and target calculation.
 ### 1. Feature Generation
 **Precomputed Features**
