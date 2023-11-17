@@ -39,9 +39,9 @@ The raw datasets used for training and testing at /data are compressed in a tar.
 This creates the subdirector /data/raw with all dataset folders including the raw data (MSA, tree file, model file, bootstrap files) which will be used for feature and target calculation.
 ### 1. Feature Generation
 _________________________________________________________________________________________________________________________________________________________________________________________
-**OPTION 1: Use precomputed features**
+**OPTION 1: Use precomputed features**\
 If you want to use precomuted features you can find a tarball [/data/processed/features/features.tar.gz](./data/processed/features/features.tar.gz). You have to decompress it using ```cd``` into the data directory and perform ```tar -xf fetures.tar.gz```.\
-**OPTION 2: Calculate features from scratch**
+**OPTION 2: Calculate features from scratch**\
 First, you need to ```cd``` into the /features folder. Then perform ```python get_features.py``` from the command line. Since this is computing over 1400 sets of features, it might take a while.\
 The code creates a folder for each dataset [/data/processed/features](./data/processed/features) including all temporary data as well as the final feature dataset features.csv. Furthermore, after computing all datasets, the features.csv at /data/processed/features contains the training features of all datasets.
 ### 2. Target Calculation
