@@ -40,16 +40,16 @@ This creates the subdirector /data/raw with all dataset folders including the ra
 ### 1. Feature Generation
 _________________________________________________________________________________________________________________________________________________________________________________________
 **Precomputed Features**
-If you want to use precomuted features you can find a tarball /data/processed/features/features.tar.gz. You have to decompress it using ```cd``` into the data directory and perform ```tar -xf fetures.tar.gz```.\
+If you want to use precomuted features you can find a tarball [/data/processed/features/features.tar.gz](./data/processed/features/features.tar.gz). You have to decompress it using ```cd``` into the data directory and perform ```tar -xf fetures.tar.gz```.\
 **From Scratch**
 First, you need to ```cd``` into the /features folder. Then perform ```python get_features.py``` from the command line. Since this is computing over 1400 sets of features, it might take a while.\
-The code creates a folder for each dataset /data/processed/features including all temporary data as well as the final feature dataset features.csv. Furthermore, after computing all datasets, the features.csv at /data/processed/features contains the training features of all datasets.
+The code creates a folder for each dataset [/data/processed/features](./data/processed/features) including all temporary data as well as the final feature dataset features.csv. Furthermore, after computing all datasets, the features.csv at /data/processed/features contains the training features of all datasets.
 ### 2. Target Calculation
 _________________________________________________________________________________________________________________________________________________________________________________________
-```cd``` into /scripts and perform ```python target_processing.py```. This will create a file data/processed/target/branch_supports.csv which is the ground truth for the training.
+```cd``` into [/scripts](./scripts) and perform ```python target_processing.py```. This will create a file data/processed/target/branch_supports.csv which is the ground truth for the training.
 ### 3. Training Dataset Creation
 _________________________________________________________________________________________________________________________________________________________________________________________
-```cd``` into /scripts and perform ```python merge_datasets.py```. This will create the final training dataset /data/processed/final/final.csv out of the features and the targets.
+```cd``` into [/scripts](./scripts) and perform ```python merge_datasets.py```. This will create the final training dataset /data/processed/final/final.csv out of the features and the targets.
 ### 4. Training
 _________________________________________________________________________________________________________________________________________________________________________________________
 Training EBG Regressor: ```cd``` into [/training](./training) and perform ```python ebg_regressor.py```\
@@ -57,8 +57,8 @@ This script trains the 5%/10% lower bound as well as the median prediction.
 \
 \
 Training EBG Classifiers: ```cd``` into [/training](./training) and perform ```python ebg_classifier.py```\
-This script sequentially trains four EBG classifiers for the different threshold (0.70, 0.75, 0.80, 0.85)
-
+This script sequentially trains four EBG classifiers for the different threshold (0.70, 0.75, 0.80, 0.85).
+_________________________________________________________________________________________________________________________________________________________________________________________
 ### References
 * A. M. Kozlov, D. Darriba, T. Flouri, B. Morel, and A. Stamatakis (2019) 
 **RAxML-NG: a fast, scalable and user-friendly tool for maximum likelihood phylogenetic inference** 
