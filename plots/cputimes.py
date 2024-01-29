@@ -26,4 +26,4 @@ plt.xticks(rotation=45, ha='right', fontsize=12)
 
 plt.yticks(fontsize=12)
 plt.tight_layout()
-plt.savefig("figures/cpu_times.png")
+plt.savefig("paper_figures/cpu_times.png")
