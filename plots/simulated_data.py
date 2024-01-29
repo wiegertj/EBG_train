@@ -26,6 +26,5 @@ plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 plt.legend(fontsize=14)
 plt.grid(True)
-plt.savefig("simulated_data.png")
-plt.show()
+plt.savefig("figures/simulated_data.png")
 
