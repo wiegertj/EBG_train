@@ -12,6 +12,7 @@ df_raxml = pd.read_csv(os.path.join(os.pardir, "data/comparison/predictions/raxm
 df_merged = df_raxml.merge(df_ebg_prediction, on=["dataset", "branchId"], how="inner")
 df_iqtree = pd.read_csv(os.path.join(os.pardir, "data/comparison/predictions/iq_boots.csv"),
                         usecols=lambda column: column != 'Unnamed: 0')
+
 df_merged = df_merged.merge(df_iqtree, left_on=["dataset", "branchId"], right_on=["dataset", "branchId_true"],
                             how="inner")
 
