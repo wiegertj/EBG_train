@@ -171,7 +171,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
         return sum(val_scores) / len(val_scores)
 
     study = optuna.create_study(direction='minimize')
-    study.optimize(objective_median, n_trials=5)
+    study.optimize(objective_median, n_trials=100)
     df = pd.DataFrame({'Value': val_scores_median})
 
     df.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_val_scores.csv"), index=False)
@@ -246,7 +246,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
         return sum(val_scores) / len(val_scores)
 
     study = optuna.create_study(direction='minimize')
-    study.optimize(objective_lower_bound_5, n_trials=5)
+    study.optimize(objective_lower_bound_5, n_trials=100)
 
     best_params_lower_bound = study.best_params
     best_params_lower_bound["objective"] = "quantile"
@@ -304,7 +304,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
         return sum(val_scores) / len(val_scores)
 
     study = optuna.create_study(direction='minimize')
-    study.optimize(objective_lower_bound_10, n_trials=5)
+    study.optimize(objective_lower_bound_10, n_trials=100)
 
     best_params_lower_bound = study.best_params
     best_params_lower_bound["objective"] = "quantile"
