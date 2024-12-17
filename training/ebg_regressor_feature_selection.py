@@ -174,7 +174,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
     study.optimize(objective_median, n_trials=5)
     df = pd.DataFrame({'Value': val_scores_median})
 
-    df.to_csv('val_scores.csv', index=False)
+    df.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_val_scores.csv"), index=False)
     best_params = study.best_params
     best_params["objective"] = "quantile"
     best_params["metric"] = "quantile"
