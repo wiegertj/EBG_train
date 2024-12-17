@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import os
 
 cpu_times = pd.read_csv(os.path.join(os.pardir, "data/comparison/cpu_times/test_times.csv"))
+pd.set_option('display.max_columns', None)
 
+print(cpu_times[cpu_times['ratio'] == cpu_times['ratio'].max()])
 sum_ebg = cpu_times["sum_ebg_inf"].sum()
 sum_iq = cpu_times["total_cpu_iqtree"].sum()
 sum_inf =  cpu_times["total_cpu_inf"].sum()

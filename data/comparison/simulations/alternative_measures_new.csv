@@ -1,0 +1,15 @@
+,Type I error > 80%,Support > 80% in True Tree
+EBG,0.14,0.66
+EBG filtered (80),0.1,0.68
+EBG filtered (50),0.08,0.7
+EBG filtered (30),0.06,0.71
+EBG filtered (17),0.05,0.77
+EBG filtered (16),0.0,0.0
+ALRT,0.17,0.76
+UFB,0.23,0.88
+SBS,0.16,0.76
+RB,0.15,0.76
+ALRT_filtered,0.76,0.92
+UFB_filtered,1.0,1.0
+SBS_filtered,0.56,1.0
+RB_filtered,0.53,1.0

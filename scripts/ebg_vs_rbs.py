@@ -26,7 +26,7 @@ def MBE(y_true, y_pred):
 
 
 df_ebg_prediction = pd.read_csv(os.path.join(os.pardir, "data/comparison/predictions/ebg_prediction_test.csv"))
-df_ebg_prediction["dataset"] = df_ebg_prediction["dataset"].str.replace(".csv", "")
+
 df_ebg_prediction["prediction_ebg_tool"] = df_ebg_prediction["prediction_median"]
 df_raxml = pd.read_csv(os.path.join(os.pardir, "data/comparison/predictions/raxml_classic_supports.csv"))
 df_merged = df_raxml.merge(df_ebg_prediction, on=["dataset", "branchId"], how="inner")
@@ -49,6 +49,26 @@ df_merged['support_over_85'] = (df_merged['true_support'] >= 85).astype(int)
 df_merged['support_over_80'] = (df_merged['true_support'] >= 80).astype(int)
 df_merged['support_over_75'] = (df_merged['true_support'] >= 75).astype(int)
 df_merged['support_over_70'] = (df_merged['true_support'] >= 70).astype(int)
+
+
+df_merged["error"] = df_merged["true_support"] - df_merged["prediction_median"]
+
+mean_error_by_dataset = df_merged.groupby('dataset')['error'].median()
+import pandas as pd
+# Convert the result back to a DataFrame if needed
+mean_error_by_dataset_df = pd.DataFrame(mean_error_by_dataset)
+pars_dist = pd.read_csv(os.path.join(os.pardir, "data/rf_pars.csv"))
+pars_dist = mean_error_by_dataset_df.merge(pars_dist, on=["dataset"], how="inner")
+import matplotlib.pyplot as plt
+
+plt.scatter(pars_dist['rf_pars'], pars_dist['error'], color='blue')
+plt.title('Error vs. RF Pars')
+plt.xlabel('RF Pars')
+plt.ylabel('Error')
+plt.grid(True)
+plt.show()
+
+
 
 print("\n" + "#" * 40 + " EBG (Unfiltered) " + "#" * 40)
 mae = mean_absolute_error(df_merged["true_support"], df_merged["prediction_median"])

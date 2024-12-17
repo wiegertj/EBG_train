@@ -149,8 +149,8 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10):
     final_model = lgb.train(best_params, train_data)
 
     model_path = os.path.join(os.pardir, "data/processed/final", f"test_classifier_{str(threshold)}.pkl")
-    with open(model_path, 'wb') as file:
-        pickle.dump(final_model, file)
+    #with open(model_path, 'wb') as file:
+     #   pickle.dump(final_model, file)
 
     y_pred = final_model.predict(X_test.drop(axis=1, columns=["group"]))
 
@@ -200,7 +200,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10):
     X_test_["prediction"] = y_pred
     X_test_["prediction_binary"] = y_pred_binary
     X_test_["support"] = y_test
-    X_test_.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_classifier_{threshold}_" + ".csv"))
+    #X_test_.to_csv(os.path.join(os.pardir, "data/processed/final/", f"test_classifier_{threshold}_" + ".csv"))
 
 
 for threshold in [0.7, 0.75, 0.8, 0.85]:

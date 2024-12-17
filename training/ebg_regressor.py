@@ -188,9 +188,9 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20):
 
     final_model = lgb.train(best_params, train_data)
 
-    model_path = os.path.join(os.pardir, "data/processed/final", "test_median_model.pkl")
-    with open(model_path, 'wb') as file:
-        pickle.dump(final_model, file)
+    #model_path = os.path.join(os.pardir, "data/processed/final", "test_median_model.pkl")
+    #with open(model_path, 'wb') as file:
+    #    pickle.dump(final_model, file)
 
     y_pred_median = final_model.predict(X_test.drop(axis=1, columns=["group"]))
 
@@ -319,9 +319,9 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20):
 
     final_model_lower_bound_10 = lgb.train(best_params_lower_bound, train_data)
 
-    model_path = os.path.join(os.pardir, "data/processed/final", "test_low_model_10.pkl")
-    with open(model_path, 'wb') as file:
-        pickle.dump(final_model_lower_bound_10, file)
+    #model_path = os.path.join(os.pardir, "data/processed/final", "test_low_model_10.pkl")
+    #with open(model_path, 'wb') as file:
+     #   pickle.dump(final_model_lower_bound_10, file)
 
     y_pred_lower_10 = final_model_lower_bound_10.predict(X_test.drop(axis=1, columns=["group"]))
     print("Quantile Loss on Holdout: " + str(quantile_loss(y_test, y_pred_lower_10, 0.1)))
@@ -332,7 +332,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20):
     X_test_["support"] = y_test
     X_test_["pred_error"] = y_test - y_pred_median
 
-    X_test_.to_csv(os.path.join(os.pardir, "data/processed/final", "test_regressor.csv"))
+    #X_test_.to_csv(os.path.join(os.pardir, "data/processed/final", "test_regressor.csv"))
 
 
 light_gbm_regressor(rfe=False)

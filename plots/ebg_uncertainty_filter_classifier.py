@@ -47,6 +47,34 @@ df_merged['support_over_80'] = (df_merged['true_support'] >= 80).astype(int)
 df_merged['support_over_75'] = (df_merged['true_support'] >= 75).astype(int)
 df_merged['support_over_70'] = (df_merged['true_support'] >= 70).astype(int)
 
+
+filtered_df = df_merged[df_merged['true_support'] < 70]
+mask = (filtered_df['true_support'] >= 60) & (filtered_df['true_support'] <= 95) & (filtered_df['entropy_ebg_over_70'] < 0.7)
+filtered_df = filtered_df[mask]
+fraction = filtered_df['ebg_over_70'].mean()
+print(f"The fraction of rows  where 'ebg_over_70' is 1 and 'support' < 70 is (FILTERED): {fraction}")
+
+
+filtered_df = df_merged[df_merged['true_support'] < 75]
+mask = (filtered_df['true_support'] >= 60) & (filtered_df['true_support'] <= 95)& (filtered_df['entropy_ebg_over_75'] < 0.7)
+filtered_df = filtered_df[mask]
+fraction = filtered_df['ebg_over_75'].mean()
+print(f"The fraction of rows  where 'ebg_over_75' is 1 and 'support' < 75 is (FILTERED): {fraction}")
+
+
+filtered_df = df_merged[df_merged['true_support'] < 80]
+mask = (filtered_df['true_support'] >= 60) & (filtered_df['true_support'] <= 95) & (filtered_df['entropy_ebg_over_80'] < 0.7)
+filtered_df = filtered_df[mask]
+fraction = filtered_df['ebg_over_80'].mean()
+print(f"The fraction of rows  where 'ebg_over_80' is 1 and 'support' < 80 is (FILTERED): {fraction}")
+
+
+filtered_df = df_merged[df_merged['true_support'] < 85]
+mask = (filtered_df['true_support'] >= 60) & (filtered_df['true_support'] <= 95) & (filtered_df['entropy_ebg_over_85'] < 0.7)
+filtered_df = filtered_df[mask]
+fraction = filtered_df['ebg_over_85'].mean()
+print(f"The fraction of rows  where 'ebg_over_85' is 1 and 'support' < 85 is (FILTERED): {fraction}")
+
 intervals = np.arange(0, 1.1, 0.1)
 
 # Calculate accuracies fitlered by uncertainty
@@ -57,6 +85,10 @@ for i in range(len(intervals) - 1):
     mask = (df_merged['entropy_ebg_over_80'] >= lower_bound) & (df_merged['entropy_ebg_over_80'] < upper_bound)
     fraction = accuracy_score(df_merged['support_over_80'][mask], df_merged['ebg_over_80'][mask])
     fractions_80.append(fraction)
+    filtered_df = df_merged[df_merged['true_support'] < 80]
+    filtered_df = filtered_df[mask]
+    fraction = filtered_df['ebg_over_80'].mean()
+    print(f"The fraction of rows  where 'ebg_over_80' is 1 and 'support' < 80 is (FILTERED): {fraction}")
 
 fractions_85 = []
 for i in range(len(intervals) - 1):
@@ -65,6 +97,10 @@ for i in range(len(intervals) - 1):
     mask = (df_merged['entropy_ebg_over_85'] >= lower_bound) & (df_merged['entropy_ebg_over_85'] < upper_bound)
     fraction = accuracy_score(df_merged['support_over_85'][mask], df_merged['ebg_over_85'][mask])
     fractions_85.append(fraction)
+    filtered_df = df_merged[df_merged['true_support'] < 85]
+    filtered_df = filtered_df[mask]
+    fraction = filtered_df['ebg_over_85'].mean()
+    print(f"The fraction of rows  where 'ebg_over_85' is 1 and 'support' < 85 is (FILTERED): {fraction}")
 
 fractions_75 = []
 for i in range(len(intervals) - 1):
@@ -73,6 +109,10 @@ for i in range(len(intervals) - 1):
     mask = (df_merged['entropy_ebg_over_75'] >= lower_bound) & (df_merged['entropy_ebg_over_75'] < upper_bound)
     fraction = accuracy_score(df_merged['support_over_75'][mask], df_merged['ebg_over_75'][mask])
     fractions_75.append(fraction)
+    filtered_df = df_merged[df_merged['true_support'] < 75]
+    filtered_df = filtered_df[mask]
+    fraction = filtered_df['ebg_over_75'].mean()
+    print(f"The fraction of rows  where 'ebg_over_75' is 1 and 'support' < 75 is (FILTERED): {fraction}")
 
 fractions_70 = []
 for i in range(len(intervals) - 1):
@@ -81,6 +121,10 @@ for i in range(len(intervals) - 1):
     mask = (df_merged['entropy_ebg_over_70'] >= lower_bound) & (df_merged['entropy_ebg_over_70'] < upper_bound)
     fraction = accuracy_score(df_merged['support_over_70'][mask], df_merged['ebg_over_70'][mask])
     fractions_70.append(fraction)
+    filtered_df = df_merged[df_merged['true_support'] < 70]
+    filtered_df = filtered_df[mask]
+    fraction = filtered_df['ebg_over_70'].mean()
+    print(f"The fraction of rows  where 'ebg_over_70' is 1 and 'support' < 70 is (FILTERED): {fraction}")
 
 bar_width = 0.2
 uncertainty_levels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -101,4 +145,4 @@ plt.yticks(np.arange(0, 1.1, 0.1))
 
 plt.legend()
 plt.tight_layout()
-plt.savefig("paper_figures/ebg_uncertainty_filter_classifier.png")
+plt.savefig("paper_figures/ebg_uncertainty_filter_classifier_high.png", dpi=900)

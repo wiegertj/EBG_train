@@ -7,3 +7,4 @@ targets = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspa
 merged_df = features.merge(targets, how="inner", on=["dataset", "branchId"])
 print(merged_df.shape)
 merged_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "processed", "final", "final.csv"))
+

@@ -51,4 +51,4 @@ fig = plt.gcf()
 fig.set_size_inches(10, 6)
 
 plt.tight_layout()
-plt.savefig("paper_figures/ebg_uncertainty_filter_regressor.png")
+plt.savefig("paper_figures/ebg_uncertainty_filter_regressor_high.png", dpi=900)

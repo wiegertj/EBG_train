@@ -15,8 +15,20 @@ correlation_df = df_merged.groupby('dataset').apply(lambda x: pd.Series({
     'mean_support': x['support'].mean()
 })).reset_index()
 correlation_df.to_csv("correlation_results.csv", index=False)
+import numpy as np
+# Add a small constant to correlation coefficients to avoid division by zero
+correlation_df['correlation'] += 1e-8
 
-mean_corr = correlation_df["correlation"].mean()
+# Convert Pearson correlation coefficients to Fisher's z scores
+correlation_df['fishers_z'] = np.arctanh(correlation_df['correlation'])
+
+# Calculate the mean of Fisher's z scores
+mean_fishers_z = correlation_df['fishers_z'].mean()
+
+# Convert the average Fisher's z score back to a Pearson correlation value
+mean_corr = np.tanh(mean_fishers_z)
+
+print("Mean Pearson correlation:", mean_corr)
 std_corr = correlation_df["correlation"].std()
 print(f"Mean Pearson correlation: {mean_corr}, Std.: {std_corr}")
 
