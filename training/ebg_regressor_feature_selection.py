@@ -53,7 +53,7 @@ def MBE(y_true, y_pred):
     return mbe
 
 
-def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
+def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None, fold_no=None):
     """
     Function for training the three EBG regressors (5%/10% lower bound and median prediction).
     Reads in the final_dataset at data/processed/final and then performs quantile regression three times.
@@ -102,7 +102,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
     print("Baseline predicting mean RMSE: " + str(rmse_mean))
 
     mse_baseline = mean_squared_error(y_test, X_test["parsimony_bootstrap_support"])
-    rmse_baseline = mean_squared_error(y_test, X_test["parsimony_bootstrap_support"], squared=False)
+    rmse_baseline = mean_squared_error(y_test, X_test["parsimony_bootstrap_support"])
     mbe_baseline = MBE(y_test, X_test["parsimony_bootstrap_support"])
     mae_baseline = mean_absolute_error(y_test, X_test["parsimony_bootstrap_support"])
     mdae_baseline = median_absolute_error(y_test, X_test["parsimony_bootstrap_support"])
@@ -174,7 +174,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
     study.optimize(objective_median, n_trials=100)
     df = pd.DataFrame({'Value': val_scores_median})
 
-    df.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_val_scores.csv"), index=False)
+    df.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_val_scores_fold_{fold_no}.csv"), index=False)
     best_params = study.best_params
     best_params["objective"] = "quantile"
     best_params["metric"] = "quantile"
@@ -335,7 +335,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None):
     X_test_["support"] = y_test
     X_test_["pred_error"] = y_test - y_pred_median
 
-    X_test_.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}.csv"))
+    X_test_.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_fold_{fold_no}.csv"))
 
 #light_gbm_regressor(rfe=False)
 
@@ -347,12 +347,15 @@ group1 = ["mean_closeness_centrality_ratio"]
 group2 = ['min_pars_support_children_weighted', 'max_pars_support_children_weighted', 'mean_pars_support_parents_weighted', 'min_pars_support_children', 'std_pars_support_children', 'number_children_relative', 'mean_pars_support_children_weighted', 'mean_pars_bootstrap_support_parents', 'std_pars_bootstrap_support_parents', 'min_pars_bootstrap_support_children_w', 'max_pars_bootstrap_support_children_w', 'std_pars_bootstrap_support_children']
 group3 = ['max_substitution_frequency', 'mean_substitution_frequency', 'cv_substitution_frequency', 'skw_substitution_frequency'
 ]
+group4 = group1 + group3
+group5 = group1 + group2 + group3
 
-group_list = [group0, group1, group2, group3]
+group_list = [group4, group5]
 
 # drop each group once
-for i, group in enumerate(group_list):
-    light_gbm_regressor(rfe=False, group=group, group_no=i)
+for i in range(0,5):
+    for i, group in enumerate(group_list):
+        light_gbm_regressor(rfe=False, group=group, group_no=i, fold_no=None)
 
 
 
