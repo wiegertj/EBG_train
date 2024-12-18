@@ -350,7 +350,7 @@ group3 = ['max_substitution_frequency', 'mean_substitution_frequency', 'cv_subst
 group4 = group1 + group3
 group5 = group1 + group2 + group3
 
-group_list = [group4, group5]
+group_list = [group0, group1, group2, group3, group4, group5]
 
 # drop each group once
 for i in range(0,5):
