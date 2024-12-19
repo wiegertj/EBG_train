@@ -353,9 +353,9 @@ group5 = group1 + group2 + group3
 group_list = [group0, group1, group2, group3, group4, group5]
 
 # drop each group once
-for i in range(0,5):
+for i_ in range(0,5):
     for i, group in enumerate(group_list):
-        light_gbm_regressor(rfe=False, group=group, group_no=i, fold_no=None)
+        light_gbm_regressor(rfe=False, group=group, group_no=i, fold_no=i_)
 
 
 
