@@ -11,7 +11,7 @@ mae_results = {group_id: [] for group_id in range(6)}
 
 # Loop through all group and fold combinations
 for group_id in range(6):
-    for fold_id in range(2):
+    for fold_id in range(3):
         file_name = file_pattern.format(group_id=group_id, fold_id=fold_id)
         file_path = os.path.join(base_dir, file_name)
 
