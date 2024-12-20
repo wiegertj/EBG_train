@@ -34,7 +34,7 @@ mae_df.boxplot()
 # Plot the means as text labels
 group_means = mae_df.mean()
 for i, mean_value in enumerate(group_means, start=1):
-    plt.text(i, mean_value, f'{mean_value:.2f}', ha='center', va='bottom', color='red')
+    plt.text(i, mean_value, f'{mean_value:.4f}', ha='center', va='bottom', color='red')
 
 plt.title("MAE per Group Over Folds")
 plt.ylabel("Mean Absolute Error")
