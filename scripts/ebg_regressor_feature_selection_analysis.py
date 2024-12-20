@@ -1,23 +1,38 @@
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
 
-# Define file path pattern
-file_path_pattern = "/Users/juliuswiegert/Downloads/test_regressor_out_{}.csv"
+# Define the file path pattern
+base_dir = "/hits/fast/cme/wiegerjs/EBG_train/EBG_train/data/processed/final"
+file_pattern = "test_regressor_out_{group_id}_val_scores_fold_{fold_id}.csv"
 
-# Loop through file indices from 0 to 3
-for i in range(4):
-    file_path = file_path_pattern.format(i)
+# Dictionary to store MAE per group
+mae_results = {group_id: [] for group_id in range(6)}
 
-    # Read the CSV file
-    df = pd.read_csv(file_path)
+# Loop through all group and fold combinations
+for group_id in range(6):
+    for fold_id in range(2):
+        file_name = file_pattern.format(group_id=group_id, fold_id=fold_id)
+        file_path = os.path.join(base_dir, file_name)
 
-    # Compute mean absolute error
-    mean_abs_error = (df['prediction_median'] - df['support']).abs().mean()
+        # Read the CSV file
+        df = pd.read_csv(file_path)
 
-    # Compute median absolute error
-    median_abs_error = (df['prediction_median'] - df['support']).abs().median()
+        # Compute Mean Absolute Error
+        mae = (df['prediction_median'] - df['support']).abs().mean()
 
-    # Print results
-    print(f"File: test_regressor_out_{i}.csv")
-    print(f"Mean Absolute Error: {mean_abs_error:.4f}")
-    print(f"Median Absolute Error: {median_abs_error:.4f}\n")
+        # Store the result
+        mae_results[group_id].append(mae)
+
+# Convert results to DataFrame for plotting
+mae_df = pd.DataFrame.from_dict(mae_results, orient='index').transpose()
+mae_df.columns = [f'Group {i}' for i in range(6)]
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+mae_df.boxplot()
+plt.title("MAE per Group Over Folds")
+plt.ylabel("Mean Absolute Error")
+plt.xlabel("Group (Dropped Features)")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
