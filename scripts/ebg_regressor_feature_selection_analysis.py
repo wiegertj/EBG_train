@@ -11,18 +11,21 @@ mae_results = {group_id: [] for group_id in range(6)}
 
 # Loop through all group and fold combinations
 for group_id in range(6):
-    for fold_id in range(3):
-        file_name = file_pattern.format(group_id=group_id, fold_id=fold_id)
-        file_path = os.path.join(base_dir, file_name)
+    for fold_id in range(4):
+        try:
+            file_name = file_pattern.format(group_id=group_id, fold_id=fold_id)
+            file_path = os.path.join(base_dir, file_name)
 
-        # Read the CSV file
-        df = pd.read_csv(file_path)
+            # Read the CSV file
+            df = pd.read_csv(file_path)
 
-        # Compute Mean Absolute Error
-        mae = (df['prediction_median'] - df['support']).abs().mean()
+            # Compute Mean Absolute Error
+            mae = (df['prediction_median'] - df['support']).abs().mean()
 
-        # Store the result
-        mae_results[group_id].append(mae)
+            # Store the result
+            mae_results[group_id].append(mae)
+        except:
+            pass
 
 # Convert results to DataFrame for plotting
 mae_df = pd.DataFrame.from_dict(mae_results, orient='index').transpose()
