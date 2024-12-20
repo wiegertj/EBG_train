@@ -31,8 +31,18 @@ mae_df.columns = [f'Group {i}' for i in range(6)]
 # Plot the results
 plt.figure(figsize=(10, 6))
 mae_df.boxplot()
+
+# Plot the means
+group_means = mae_df.mean()
+plt.plot(range(1, 7), group_means, marker='o', color='red', linestyle='None', label='Mean')
+
 plt.title("MAE per Group Over Folds")
 plt.ylabel("Mean Absolute Error")
 plt.xlabel("Group (Dropped Features)")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.legend()
+
+# Save the figure
+output_file = "/hits/fast/cme/wiegerjs/feature_sel.png"
+plt.savefig(output_file, dpi=300, bbox_inches='tight')
 plt.show()
