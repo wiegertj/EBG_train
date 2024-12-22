@@ -335,11 +335,11 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None, 
     X_test_["support"] = y_test
     X_test_["pred_error"] = y_test - y_pred_median
 
-    X_test_.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_fold_{fold_no}.csv"))
+    X_test_.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_fold_{fold_no}_new.csv"))
 
 #light_gbm_regressor(rfe=False)
 
-df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", f"final.csv"),
+df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", f"final_new.csv"),
                      usecols=lambda column: column != 'Unnamed: 0')
 
 group0 = []
