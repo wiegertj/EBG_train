@@ -68,7 +68,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None, 
     rfe_feature_n : int
         number of features for recursive feature elimination
     """
-    df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final.csv"),
+    df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final_new.csv"),
                      usecols=lambda column: column != 'Unnamed: 0')
 
     if group is not None:
@@ -174,7 +174,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, group=None, group_no=None, 
     study.optimize(objective_median, n_trials=100)
     df = pd.DataFrame({'Value': val_scores_median})
 
-    df.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_val_scores_fold_{fold_no}.csv"), index=False)
+    df.to_csv(os.path.join(os.pardir, "data/processed/final", f"test_regressor_out_{group_no}_val_scores_fold_{fold_no}_new.csv"), index=False)
     best_params = study.best_params
     best_params["objective"] = "quantile"
     best_params["metric"] = "quantile"
@@ -345,12 +345,13 @@ df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", f"final.csv"),
 group0 = []
 group1 = ["mean_closeness_centrality_ratio"]
 group2 = ['min_pars_support_children_weighted', 'max_pars_support_children_weighted', 'mean_pars_support_parents_weighted', 'min_pars_support_children', 'std_pars_support_children', 'number_children_relative', 'mean_pars_support_children_weighted', 'mean_pars_bootstrap_support_parents', 'std_pars_bootstrap_support_parents', 'min_pars_bootstrap_support_children_w', 'max_pars_bootstrap_support_children_w', 'std_pars_bootstrap_support_children']
-group3 = ['max_substitution_frequency', 'mean_substitution_frequency', 'cv_substitution_frequency', 'skw_substitution_frequency'
-]
-group4 = group1 + group3
-group5 = group1 + group2 + group3
+group3 = ['max_substitution_frequency', 'mean_substitution_frequency', 'cv_substitution_frequency', 'skw_substitution_frequency']
 
-group_list = [group0, group1, group2, group3, group4, group5]
+
+group4 = group1 + group3 # del sub and ratio
+group5 = group1 + group2 + group3 # del sub and ratio and child/par
+
+group_list = [group0, group4, group5]
 
 # drop each group once
 for i_ in range(0,5):
