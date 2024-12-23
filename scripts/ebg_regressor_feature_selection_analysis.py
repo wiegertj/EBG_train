@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 
 # Define the file path pattern
 base_dir = "/hits/fast/cme/wiegerjs/EBG_train/EBG_train/data/processed/final"
-file_pattern = "test_regressor_out_{group_id}_fold_{fold_id}.csv" #test_regressor_out_0_fold_3.csv
+file_pattern = "test_regressor_out_{group_id}_fold_{fold_id}_new.csv" #test_regressor_out_0_fold_3.csv
 
 # Dictionary to store MAE per group
 mae_results = {group_id: [] for group_id in range(6)}
 
 # Loop through all group and fold combinations
-for group_id in range(6):
+for group_id in range(3):
     for fold_id in range(4):
         try:
             file_name = file_pattern.format(group_id=group_id, fold_id=fold_id)
