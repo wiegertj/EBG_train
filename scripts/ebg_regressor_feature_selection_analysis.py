@@ -29,7 +29,7 @@ for group_id in range(3):
 
 # Convert results to DataFrame for plotting
 mae_df = pd.DataFrame.from_dict(mae_results, orient='index').transpose()
-mae_df.columns = [f'Group {i}' for i in range(6)]
+mae_df.columns = [f'Group {i}' for i in range(3)]
 # Plot the results
 plt.figure(figsize=(10, 6))
 mae_df.boxplot()
