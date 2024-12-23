@@ -7,7 +7,7 @@ base_dir = "/hits/fast/cme/wiegerjs/EBG_train/EBG_train/data/processed/final"
 file_pattern = "test_regressor_out_{group_id}_fold_{fold_id}_new.csv" #test_regressor_out_0_fold_3.csv
 
 # Dictionary to store MAE per group
-mae_results = {group_id: [] for group_id in range(6)}
+mae_results = {group_id: [] for group_id in range(3)}
 
 # Loop through all group and fold combinations
 for group_id in range(3):
@@ -45,7 +45,7 @@ plt.xlabel("Group (Dropped Features)")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 
 # Save the figure
-output_file = "/hits/fast/cme/wiegerjs/feature_sel.png"
+output_file = "/hits/fast/cme/wiegerjs/feature_sel_new.png"
 plt.savefig(output_file, dpi=300, bbox_inches='tight')
 plt.tight_layout()
 plt.show()
