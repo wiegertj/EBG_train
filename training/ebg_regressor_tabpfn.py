@@ -151,6 +151,12 @@ def tabfn_regressor():
     # Assuming quantile_predictions and y_test are already available
     quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
 
+    quantile_predictions = clf.predict(
+        X_test,
+        output_type="quantiles",
+        quantiles=quantiles,
+    )
+
     # Split predictions into individual quantiles
     q05, q25, q50, q75, q95 = [quantile_predictions[:, i] for i in range(len(quantiles))]
 
