@@ -172,10 +172,6 @@ def tabfn_regressor():
     mdae = median_absolute_error(y_test, y_pred_median)
     print(f"MdAE on test set: {mdae}")
 
-    import numpy as np
-    from sklearn.metrics import mean_squared_error, median_absolute_error
-    import matplotlib.pyplot as plt
-
     # Assuming quantile_predictions and y_test are already available
     quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
 
