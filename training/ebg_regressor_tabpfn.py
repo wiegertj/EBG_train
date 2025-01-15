@@ -1,9 +1,7 @@
 import math
 import random
-import lightgbm as lgb
 import os
 import pickle
-import optuna
 import numpy as np
 import pandas as pd
 from statistics import mean
