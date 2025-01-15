@@ -145,7 +145,7 @@ def tabfn_regressor():
     # Train the classifier on the sampled data
     clf.fit(X_sample, y_sample)
 
-    y_pred_median = clf.predict(X_test)
+    y_pred_median = clf.predict(X_test.to_numpy())
 
     mse = mean_squared_error(y_test, y_pred_median)
     rmse = math.sqrt(mse)
