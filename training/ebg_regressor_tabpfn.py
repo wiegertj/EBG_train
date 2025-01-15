@@ -127,7 +127,14 @@ def tabfn_regressor():
     print("MdAE (Median Absolute Error):", mdae_baseline)
 
     clf = TabPFNRegressor(ignore_pretraining_limits=True)
-    clf.fit(X_train, y_train)
+    sample_indices = np.random.choice(len(X_train), size=10000, replace=False)
+
+    # Create the sampled training data
+    X_sample = X_train[sample_indices]
+    y_sample = y_train[sample_indices]
+
+    # Train the classifier on the sampled data
+    clf.fit(X_sample, y_sample)
 
     y_pred_median = clf.predict(X_test)
 
