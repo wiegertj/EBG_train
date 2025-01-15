@@ -208,7 +208,7 @@ def tabfn_regressor():
         plt.title(f'Impact of {interval_name} Narrowness on Error Metrics')
         plt.legend()
         plt.grid()
-        plt.show()
+        plt.savefig("/hits/fast/cme/wiegerjs/tabpfn.png")
 
 
 tabfn_regressor()
