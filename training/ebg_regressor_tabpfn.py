@@ -128,7 +128,7 @@ def tabfn_regressor():
     print("MdAE (Median Absolute Error):", mdae_baseline)
 
     clf = TabPFNRegressor()
-    sample_indices = np.random.choice(len(X_train), size=50, replace=False)
+    sample_indices = np.random.choice(len(X_train), size=30, replace=False)
 
     X_train_np = X_train.to_numpy()
     y_train_np = y_train.to_numpy()
@@ -137,7 +137,7 @@ def tabfn_regressor():
     np.random.seed(42)
 
     # Randomly sample 10,000 indices
-    sample_indices = np.random.choice(len(X_train_np), size=50, replace=False)
+    sample_indices = np.random.choice(len(X_train_np), size=30, replace=False)
 
     # Create the sampled training data
     X_sample = X_train_np[sample_indices]
@@ -165,8 +165,8 @@ def tabfn_regressor():
 
     # Calculate interval widths
     intervals = {
-        'Q75-Q25': q75 - q25,
-        'Q95-Q05': q95 - q05
+        'Q75_Q25': q75 - q25,
+        'Q95_Q05': q95 - q05
     }
 
     # Initialize results storage
@@ -182,6 +182,15 @@ def tabfn_regressor():
         # Bin the interval widths
         bins = np.linspace(interval_widths.min(), interval_widths.max(), num=10)
         bin_indices = np.digitize(interval_widths, bins)
+
+        # Plot histogram of the distribution of the data in the bins
+        plt.figure(figsize=(10, 6))
+        plt.hist(interval_widths, bins=bins, edgecolor='k', alpha=0.7, density=True)
+        plt.xlabel(f'{interval_name} Width')
+        plt.ylabel('Frequency')
+        plt.title(f'Distribution of {interval_name} Widths')
+        plt.grid()
+        plt.savefig(f"/hits/fast/cme/wiegerjs/tabpfn_hist_{interval_name}")
 
         for bin_idx in range(1, len(bins)):
             bin_mask = bin_indices == bin_idx
@@ -209,7 +218,7 @@ def tabfn_regressor():
         plt.title(f'Impact of {interval_name} Narrowness on Error Metrics')
         plt.legend()
         plt.grid()
-        plt.savefig("/hits/fast/cme/wiegerjs/tabpfn.png")
+        plt.savefig(f"/hits/fast/cme/wiegerjs/tabpfn_{interval_name}.png")
 
 
 tabfn_regressor()
