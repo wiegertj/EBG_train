@@ -157,6 +157,9 @@ def tabfn_regressor():
         quantiles=quantiles,
     )
 
+    print(quantile_predictions)
+    print(type(quantile_predictions))
+
     # Split predictions into individual quantiles
     q05, q25, q50, q75, q95 = [quantile_predictions[:, i] for i in range(len(quantiles))]
 
