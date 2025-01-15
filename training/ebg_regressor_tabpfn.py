@@ -160,8 +160,8 @@ def tabfn_regressor():
     print(quantile_predictions)
     print(type(quantile_predictions))
 
-    # Split predictions into individual quantiles
-    q05, q25, q50, q75, q95 = [quantile_predictions[:, i] for i in range(len(quantiles))]
+    # Split predictions into individual quantiles from the list
+    q05, q25, q50, q75, q95 = quantile_predictions
 
     # Calculate interval widths
     intervals = {
@@ -194,12 +194,10 @@ def tabfn_regressor():
                 results['Width_Bin'].append(bin_width_mean)
                 results['MAE'].append(mae)
                 results['MdAE'].append(mdae)
-
-    # Convert results to a structured display
+    # Display results to the user
     results_df = pd.DataFrame(results)
 
-    # Display results to the user
-
+    # Plot narrowness vs errors for each interval
     # Plot narrowness vs errors for each interval
     for interval_name in intervals.keys():
         interval_data = results_df[results_df['Interval'] == interval_name]
