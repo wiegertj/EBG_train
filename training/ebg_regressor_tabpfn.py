@@ -130,8 +130,8 @@ def tabfn_regressor():
     sample_indices = np.random.choice(len(X_train), size=10000, replace=False)
 
     # Create the sampled training data
-    X_sample = X_train[sample_indices]
-    y_sample = y_train[sample_indices]
+    X_sample = X_train.loc[sample_indices]
+    y_sample = y_train.loc[sample_indices]
 
     # Train the classifier on the sampled data
     print(X_sample)
