@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, median_absolute_error
 from sklearn.model_selection import GroupKFold
 from tabpfn import TabPFNRegressor
+import matplotlib.pyplot as plt
 
 
 def quantile_loss(y_true, y_pred, quantile):
