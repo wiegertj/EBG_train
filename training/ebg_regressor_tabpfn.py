@@ -115,7 +115,7 @@ def tabfn_regressor():
     print("Baseline predicting mean RMSE: " + str(rmse_mean))
 
     mse_baseline = mean_squared_error(y_test, X_test["parsimony_bootstrap_support"])
-    rmse_baseline = mean_squared_error(y_test, X_test["parsimony_bootstrap_support"], squared=False)
+    rmse_baseline = mean_squared_error(y_test, X_test["parsimony_bootstrap_support"])
     mbe_baseline = MBE(y_test, X_test["parsimony_bootstrap_support"])
     mae_baseline = mean_absolute_error(y_test, X_test["parsimony_bootstrap_support"])
     mdae_baseline = median_absolute_error(y_test, X_test["parsimony_bootstrap_support"])
