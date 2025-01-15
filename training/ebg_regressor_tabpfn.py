@@ -155,7 +155,7 @@ def tabfn_regressor():
         quantiles=quantiles,
     )
 
-    print(quantile_predictions.shape)
+    print(quantile_predictions)
 
     mse = mean_squared_error(y_test, y_pred_median)
     rmse = math.sqrt(mse)
