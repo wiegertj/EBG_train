@@ -128,7 +128,7 @@ def tabfn_regressor():
     print("MdAE (Median Absolute Error):", mdae_baseline)
 
     clf = TabPFNRegressor()
-    sample_indices = np.random.choice(len(X_train), size=30, replace=False)
+    sample_indices = np.random.choice(len(X_train), size=10000, replace=False)
 
     X_train_np = X_train.to_numpy()
     y_train_np = y_train.to_numpy()
@@ -137,7 +137,7 @@ def tabfn_regressor():
     np.random.seed(42)
 
     # Randomly sample 10,000 indices
-    sample_indices = np.random.choice(len(X_train_np), size=30, replace=False)
+    sample_indices = np.random.choice(len(X_train_np), size=10000, replace=False)
 
     # Create the sampled training data
     X_sample = X_train_np[sample_indices]
@@ -157,11 +157,23 @@ def tabfn_regressor():
         quantiles=quantiles,
     )
 
+
+
     print(quantile_predictions)
     print(type(quantile_predictions))
 
     # Split predictions into individual quantiles from the list
     q05, q25, q50, q75, q95 = quantile_predictions
+
+    quantile_data = {'Q05': q05, 'Q25': q25, 'Q75': q75, 'Q95': q95}
+    for quantile_name, quantile_values in quantile_data.items():
+        plt.figure(figsize=(10, 6))
+        plt.hist(quantile_values, bins=30, edgecolor='k', alpha=0.7)
+        plt.xlabel(f'{quantile_name} Values')
+        plt.ylabel('Frequency')
+        plt.title(f'Distribution of {quantile_name}')
+        plt.grid()
+        plt.savefig(f"/hits/fast/cme/wiegerjs/hist_{quantile_name}.png")
 
     # Calculate interval widths
     intervals = {
