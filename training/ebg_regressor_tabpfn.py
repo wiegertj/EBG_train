@@ -134,6 +134,7 @@ def tabfn_regressor():
     y_sample = y_train[sample_indices]
 
     # Train the classifier on the sampled data
+    print(X_sample)
     clf.fit(X_sample, y_sample)
 
     y_pred_median = clf.predict(X_test)
