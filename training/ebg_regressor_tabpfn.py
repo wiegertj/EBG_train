@@ -129,12 +129,20 @@ def tabfn_regressor():
     clf = TabPFNRegressor()
     sample_indices = np.random.choice(len(X_train), size=10000, replace=False)
 
+    X_train_np = X_train.to_numpy()
+    y_train_np = y_train.to_numpy()
+
+    # Set a fixed random seed for reproducibility
+    np.random.seed(42)
+
+    # Randomly sample 10,000 indices
+    sample_indices = np.random.choice(len(X_train_np), size=10000, replace=False)
+
     # Create the sampled training data
-    X_sample = X_train.loc[sample_indices]
-    y_sample = y_train.loc[sample_indices]
+    X_sample = X_train_np[sample_indices]
+    y_sample = y_train_np[sample_indices]
 
     # Train the classifier on the sampled data
-    print(X_sample)
     clf.fit(X_sample, y_sample)
 
     y_pred_median = clf.predict(X_test)
