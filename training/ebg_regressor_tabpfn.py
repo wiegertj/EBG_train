@@ -126,8 +126,8 @@ def tabfn_regressor():
     print("MAE (Mean Absolute Error):", mae_baseline)
     print("MdAE (Median Absolute Error):", mdae_baseline)
 
-    clf = TabPFNRegressor()
-    clf.fit(X_train, y_train, ignore_pretraining_limits=True)
+    clf = TabPFNRegressor(ignore_pretraining_limits=True)
+    clf.fit(X_train, y_train)
 
     y_pred_median = clf.predict(X_test)
 
