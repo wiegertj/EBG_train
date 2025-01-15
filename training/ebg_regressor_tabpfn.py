@@ -127,7 +127,7 @@ def tabfn_regressor():
     print("MdAE (Median Absolute Error):", mdae_baseline)
 
     clf = TabPFNRegressor()
-    sample_indices = np.random.choice(len(X_train), size=10000, replace=False)
+    sample_indices = np.random.choice(len(X_train), size=500, replace=False)
 
     X_train_np = X_train.to_numpy()
     y_train_np = y_train.to_numpy()
@@ -136,7 +136,7 @@ def tabfn_regressor():
     np.random.seed(42)
 
     # Randomly sample 10,000 indices
-    sample_indices = np.random.choice(len(X_train_np), size=10000, replace=False)
+    sample_indices = np.random.choice(len(X_train_np), size=500, replace=False)
 
     # Create the sampled training data
     X_sample = X_train_np[sample_indices]
@@ -146,6 +146,15 @@ def tabfn_regressor():
     clf.fit(X_sample, y_sample)
 
     y_pred_median = clf.predict(X_test.to_numpy())
+
+    quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
+    quantile_predictions = clf.predict(
+        X_test,
+        output_type="quantiles",
+        quantiles=quantiles,
+    )
+
+    print(quantile_predictions.shape)
 
     mse = mean_squared_error(y_test, y_pred_median)
     rmse = math.sqrt(mse)
@@ -162,6 +171,56 @@ def tabfn_regressor():
 
     mdae = median_absolute_error(y_test, y_pred_median)
     print(f"MdAE on test set: {mdae}")
+
+    import numpy as np
+    from sklearn.metrics import mean_squared_error, median_absolute_error
+    import matplotlib.pyplot as plt
+
+    # Assuming quantile_predictions and y_test are already available
+    quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
+
+    # Split predictions into individual quantiles
+    q05, q25, q50, q75, q95 = [quantile_predictions[:, i] for i in range(len(quantiles))]
+
+    # Calculate narrowness of the quantile region
+    quantile_widths = {
+        'Q95-Q05': q95 - q05,
+        'Q75-Q25': q75 - q25
+    }
+
+    # Initialize results storage
+    results = {
+        'Region': [],
+        'Width_Mean': [],
+        'MAE': [],
+        'MdAE': []
+    }
+
+    # Calculate errors for each region
+    for region, width in quantile_widths.items():
+        # Use the median prediction (q50) as the central value
+        mae = mean_squared_error(y_test, q50, squared=False)  # RMSE as MAE proxy
+        mdae = median_absolute_error(y_test, q50)
+
+        results['Region'].append(region)
+        results['Width_Mean'].append(np.mean(width))
+        results['MAE'].append(mae)
+        results['MdAE'].append(mdae)
+
+    # Convert results to a structured display
+    results_df = pd.DataFrame(results)
+
+    # Display results to the user
+    # Plot narrowness vs errors
+    plt.figure(figsize=(10, 6))
+    plt.plot(results['Width_Mean'], results['MAE'], marker='o', label='MAE')
+    plt.plot(results['Width_Mean'], results['MdAE'], marker='o', label='MdAE')
+    plt.xlabel('Mean Width of Quantile Region')
+    plt.ylabel('Error Metrics')
+    plt.title('Impact of Quantile Region Narrowness on Error Metrics')
+    plt.legend()
+    plt.grid()
+    plt.savefig("/hits/fast/cme/wiegerjs/tabpfn.png")
 
 
 tabfn_regressor()
