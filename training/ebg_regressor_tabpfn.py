@@ -126,7 +126,7 @@ def tabfn_regressor():
     print("MAE (Mean Absolute Error):", mae_baseline)
     print("MdAE (Median Absolute Error):", mdae_baseline)
 
-    clf = TabPFNRegressor(ignore_pretraining_limits=True)
+    clf = TabPFNRegressor()
     sample_indices = np.random.choice(len(X_train), size=10000, replace=False)
 
     # Create the sampled training data
