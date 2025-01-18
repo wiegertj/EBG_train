@@ -13,8 +13,25 @@ from sklearn.model_selection import GroupKFold
 from scipy.stats import entropy
 
 
-def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10):
+def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=True):
     df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final.csv"))
+
+    if train_light:
+        group2 = [
+            'min_pars_support_children_weighted',
+            'max_pars_support_children_weighted',
+            'mean_pars_support_parents_weighted',
+            'min_pars_support_children',
+            'std_pars_support_children',
+            'number_children_relative',
+            'mean_pars_support_children_weighted',
+            'mean_pars_bootstrap_support_parents',
+            'std_pars_bootstrap_support_parents',
+            'min_pars_bootstrap_support_children_w',
+            'max_pars_bootstrap_support_children_w',
+            'std_pars_bootstrap_support_children'
+        ]
+        df = df.drop(columns=group2, errors='ignore')
     """
     This functions trains the classifier to solve the binary classification problem between the class 0 
     (SBS value does not exceed threshold) and the class 1 (it does). 
@@ -33,19 +50,20 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10):
     df.fillna(-1, inplace=True)
     df.replace([np.inf, -np.inf], -1, inplace=True)
 
+
     """
         Load regressions models and make prediction for using them as features for the classifer
     """
     df_reg_pred = df.drop(columns=["dataset", "support"], axis=1)
-    with open(os.path.join(os.path.pardir, "data", "models", "median_model.pkl"),
+    with open(os.path.join(os.path.pardir, "data", "models", "median_model_light.pkl"),
               'rb') as model_file:
         regression_median = pickle.load(model_file)
 
-    with open(os.path.join(os.path.pardir, "data", "models", "low_model_10.pkl"),
+    with open(os.path.join(os.path.pardir, "data", "models", "low_model_10_light.pkl"),
               'rb') as model_file:
         regression_lower10 = pickle.load(model_file)
 
-    with open(os.path.join(os.path.pardir, "data", "models", "low_model_5.pkl"),
+    with open(os.path.join(os.path.pardir, "data", "models", "low_model_5_light.pkl"),
               'rb') as model_file:
         regression_lower5 = pickle.load(model_file)
 
@@ -148,9 +166,9 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10):
     train_data = lgb.Dataset(X_train.drop(axis=1, columns=["group"]), label=y_train)
     final_model = lgb.train(best_params, train_data)
 
-    model_path = os.path.join(os.pardir, "data/processed/final", f"test_classifier_{str(threshold)}.pkl")
-    #with open(model_path, 'wb') as file:
-     #   pickle.dump(final_model, file)
+    model_path = os.path.join(os.pardir, "data/processed/final", f"test_classifier_{str(threshold)}_light.pkl")
+    with open(model_path, 'wb') as file:
+        pickle.dump(final_model, file)
 
     y_pred = final_model.predict(X_test.drop(axis=1, columns=["group"]))
 
@@ -200,7 +218,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10):
     X_test_["prediction"] = y_pred
     X_test_["prediction_binary"] = y_pred_binary
     X_test_["support"] = y_test
-    #X_test_.to_csv(os.path.join(os.pardir, "data/processed/final/", f"test_classifier_{threshold}_" + ".csv"))
+    X_test_.to_csv(os.path.join(os.pardir, "data/processed/final/", f"test_classifier_{threshold}_light" + ".csv"))
 
 
 for threshold in [0.7, 0.75, 0.8, 0.85]:
