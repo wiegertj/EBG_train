@@ -83,20 +83,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
         group3 = ['max_substitution_frequency', 'mean_substitution_frequency', 'cv_substitution_frequency',
                   'skw_substitution_frequency']
 
-        group_to_drop = [
-            'min_pars_support_children_weighted',
-            'max_pars_support_children_weighted',
-            'mean_pars_support_parents_weighted',
-            'min_pars_support_children',
-            'std_pars_support_children',
-            'number_children_relative',
-            'mean_pars_support_children_weighted',
-            'mean_pars_bootstrap_support_parents',
-            'std_pars_bootstrap_support_parents',
-            'min_pars_bootstrap_support_children_w',
-            'max_pars_bootstrap_support_children_w',
-            'std_pars_bootstrap_support_children'
-        ]
+        group_to_drop = group1 + group2 + group3
         df = df.drop(columns=group_to_drop, errors='ignore')
 
     df.fillna(-1, inplace=True)
