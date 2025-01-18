@@ -25,7 +25,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
                   'min_pars_bootstrap_support_children_w', 'max_pars_bootstrap_support_children_w',
                   'std_pars_bootstrap_support_children']
         group3 = ['max_substitution_frequency', 'mean_substitution_frequency', 'cv_substitution_frequency',
-                  'skw_substitution_frequency']
+                  'skw_substitution_frequency', 'Unnamed: 0']
 
         group_to_drop = group1 + group2 + group3
         df = df.drop(columns=group_to_drop, errors='ignore')
