@@ -1,5 +1,7 @@
 import pickle
 import random
+import sys
+
 import lightgbm as lgb
 import os
 import optuna
@@ -52,6 +54,8 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         Load regressions models and make prediction for using them as features for the classifer
     """
     df_reg_pred = df.drop(columns=["dataset", "support"], axis=1)
+    print(df_reg_pred.columns)
+    sys.exit()
     print(df_reg_pred.columns)
     with open(os.path.join(os.path.pardir, "data", "processed", "final", "test_median_model_light.pkl"),
               'rb') as model_file:
@@ -135,10 +139,10 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         val_scores = []
 
         gkf = GroupKFold(n_splits=10)
-        for train_idx, val_idx in gkf.split(X_train.drop(axis=1, columns=['group']), y_train, groups=X_train["group"]):
+        for train_idx, val_idx in gkf.split(X_train.drop(axis=1, columns=['group', 'branch_id']), y_train, groups=X_train["group"]):
             X_train_tmp, y_train_tmp = X_train.drop(axis=1, columns=['group']).iloc[train_idx], y_train.iloc[train_idx]
             print(X_train.columns)
-            X_val, y_val = X_train.drop(axis=1, columns=['group']).iloc[val_idx], y_train.iloc[val_idx]
+            X_val, y_val = X_train.drop(axis=1, columns=['group', 'branch_id']).iloc[val_idx], y_train.iloc[val_idx]
 
             train_data = lgb.Dataset(X_train_tmp, label=y_train_tmp)
             model = lgb.train(params, train_data)
@@ -151,7 +155,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         return np.mean(val_scores)
 
     study = optuna.create_study(direction='maximize')
-    study.optimize(objective, n_trials=200)
+    study.optimize(objective, n_trials=100)
 
     best_params = study.best_params
     best_params["objective"] = "binary"
@@ -169,7 +173,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
     with open(model_path, 'wb') as file:
         pickle.dump(final_model, file)
 
-    y_pred = final_model.predict(X_test.drop(axis=1, columns=["group"]))
+    y_pred = final_model.predict(X_test.drop(axis=1, columns=["group", 'branch_id']))
 
     y_pred_binary = (y_pred >= 0.5).astype(int)
     used_probability = np.where(y_pred_binary == 1, y_pred, 1 - y_pred)
@@ -203,7 +207,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
     feature_importance = final_model.feature_importance(importance_type='gain')
 
     importance_df = pd.DataFrame(
-        {'Feature': X_train.drop(axis=1, columns=["group"]).columns, 'Importance': feature_importance})
+        {'Feature': X_train.drop(axis=1, columns=["group", 'branch_id']).columns, 'Importance': feature_importance})
     importance_df = importance_df.sort_values(by='Importance', ascending=False)
 
     scaler = MinMaxScaler()
