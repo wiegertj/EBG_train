@@ -17,21 +17,18 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
     df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final.csv"))
 
     if train_light:
-        group2 = [
-            'min_pars_support_children_weighted',
-            'max_pars_support_children_weighted',
-            'mean_pars_support_parents_weighted',
-            'min_pars_support_children',
-            'std_pars_support_children',
-            'number_children_relative',
-            'mean_pars_support_children_weighted',
-            'mean_pars_bootstrap_support_parents',
-            'std_pars_bootstrap_support_parents',
-            'min_pars_bootstrap_support_children_w',
-            'max_pars_bootstrap_support_children_w',
-            'std_pars_bootstrap_support_children'
-        ]
-        df = df.drop(columns=group2, errors='ignore')
+        group1 = ["mean_closeness_centrality_ratio", "branch_length_ratio_split"]
+        group2 = ['min_pars_support_children_weighted', 'max_pars_support_children_weighted',
+                  'mean_pars_support_parents_weighted', 'min_pars_support_children', 'std_pars_support_children',
+                  'number_children_relative', 'mean_pars_support_children_weighted',
+                  'mean_pars_bootstrap_support_parents', 'std_pars_bootstrap_support_parents',
+                  'min_pars_bootstrap_support_children_w', 'max_pars_bootstrap_support_children_w',
+                  'std_pars_bootstrap_support_children']
+        group3 = ['max_substitution_frequency', 'mean_substitution_frequency', 'cv_substitution_frequency',
+                  'skw_substitution_frequency']
+
+        group_to_drop = group1 + group2 + group3
+        df = df.drop(columns=group_to_drop, errors='ignore')
     """
     This functions trains the classifier to solve the binary classification problem between the class 0 
     (SBS value does not exceed threshold) and the class 1 (it does). 
