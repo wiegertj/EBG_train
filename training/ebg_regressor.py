@@ -75,7 +75,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
 
     # drop features for EBG-light training
     if train_light:
-        group1 = ["mean_closeness_centrality_ratio"]
+        group1 = ["mean_closeness_centrality_ratio", "branch_length_ratio_split"]
         group2 = ['min_pars_support_children_weighted', 'max_pars_support_children_weighted',
                   'mean_pars_support_parents_weighted', 'min_pars_support_children', 'std_pars_support_children',
                   'number_children_relative', 'mean_pars_support_children_weighted',
