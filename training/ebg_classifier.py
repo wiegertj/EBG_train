@@ -150,7 +150,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         return np.mean(val_scores)
 
     study = optuna.create_study(direction='maximize')
-    study.optimize(objective, n_trials=5)
+    study.optimize(objective, n_trials=200)
 
     best_params = study.best_params
     best_params["objective"] = "binary"
