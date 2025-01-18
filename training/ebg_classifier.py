@@ -55,15 +55,15 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         Load regressions models and make prediction for using them as features for the classifer
     """
     df_reg_pred = df.drop(columns=["dataset", "support"], axis=1)
-    with open(os.path.join(os.path.pardir, "data", "models", "median_model_light.pkl"),
+    with open(os.path.join(os.path.pardir, "data", "models", "final", "median_model_light.pkl"),
               'rb') as model_file:
         regression_median = pickle.load(model_file)
 
-    with open(os.path.join(os.path.pardir, "data", "models", "low_model_10_light.pkl"),
+    with open(os.path.join(os.path.pardir, "data", "models", "final", "low_model_10_light.pkl"),
               'rb') as model_file:
         regression_lower10 = pickle.load(model_file)
 
-    with open(os.path.join(os.path.pardir, "data", "models", "low_model_5_light.pkl"),
+    with open(os.path.join(os.path.pardir, "data", "models", "final", "low_model_5_light.pkl"),
               'rb') as model_file:
         regression_lower5 = pickle.load(model_file)
 
