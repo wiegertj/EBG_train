@@ -72,7 +72,10 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
     """
     df = pd.read_csv(os.path.join(os.pardir, "data/processed/final", "final.csv"),
                      usecols=lambda column: column != 'Unnamed: 0')
-
+    #Index(['branchId', 'branch_length_ratio_split', 'parsimony_support',
+     #      'branch_length', 'norm_branch_length', 'parsimony_bootstrap_support',
+      #     'skewness_bootstrap_pars_support_tree', 'mean_norm_rf_distance',
+       #    'dataset', 'support'],
     # drop features for EBG-light training
     if train_light:
         group1 = ["mean_closeness_centrality_ratio", "branch_length_ratio_split"]
@@ -92,7 +95,6 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
     df.replace([np.inf, -np.inf], -1, inplace=True)
 
     print(df.columns)
-    sys.exit()
 
     print("Median Support: ")
     print(df["support"].median())
