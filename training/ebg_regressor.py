@@ -174,9 +174,9 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
         val_scores = []
 
         gkf = GroupKFold(n_splits=6)
-        for train_idx, val_idx in gkf.split(X_train.drop(axis=1, columns=['group']), y_train, groups=X_train["group"]):
-            X_train_tmp, y_train_tmp = X_train.drop(axis=1, columns=['group']).iloc[train_idx], y_train.iloc[train_idx]
-            X_val, y_val = X_train.drop(axis=1, columns=['group']).iloc[val_idx], y_train.iloc[val_idx]
+        for train_idx, val_idx in gkf.split(X_train.drop(axis=1,columns=["group", "branchId"]), y_train, groups=X_train["group"]):
+            X_train_tmp, y_train_tmp = X_train.drop(axis=1, columns=["group", "branchId"]).iloc[train_idx], y_train.iloc[train_idx]
+            X_val, y_val = X_train.drop(axis=1,columns=["group", "branchId"]).iloc[val_idx], y_train.iloc[val_idx]
 
             train_data = lgb.Dataset(X_train_tmp, label=y_train_tmp)
             model = lgb.train(params, train_data)
@@ -190,7 +190,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
         return sum(val_scores) / len(val_scores)
 
     study = optuna.create_study(direction='minimize')
-    study.optimize(objective_median, n_trials=100)
+    study.optimize(objective_median, n_trials=3)
     df = pd.DataFrame({'Value': val_scores_median})
 
     df.to_csv('val_scores.csv', index=False)
@@ -206,7 +206,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
     print(f"Best Params: {best_params}")
     print(f"Best MAPE training: {best_score_median}")
 
-    train_data = lgb.Dataset(X_train.drop(axis=1, columns=["group"]), label=y_train)
+    train_data = lgb.Dataset(X_train.drop(axis=1, columns=["group", "branchId"]), label=y_train)
 
     final_model = lgb.train(best_params, train_data)
 
@@ -253,9 +253,9 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
         val_scores = []
 
         gkf = GroupKFold(n_splits=5)
-        for train_idx, val_idx in gkf.split(X_train.drop(axis=1, columns=['group']), y_train, groups=X_train["group"]):
-            X_train_tmp, y_train_tmp = X_train.drop(axis=1, columns=['group']).iloc[train_idx], y_train.iloc[train_idx]
-            X_val, y_val = X_train.drop(axis=1, columns=['group']).iloc[val_idx], y_train.iloc[val_idx]
+        for train_idx, val_idx in gkf.split(X_train.drop(axis=1, columns=["group", "branchId"]), y_train, groups=X_train["group"]):
+            X_train_tmp, y_train_tmp = X_train.drop(axis=1, columns=["group", "branchId"]).iloc[train_idx], y_train.iloc[train_idx]
+            X_val, y_val = X_train.drop(axis=1, columns=["group", "branchId"]).iloc[val_idx], y_train.iloc[val_idx]
             train_data = lgb.Dataset(X_train_tmp, label=y_train_tmp)
             model = lgb.train(params, train_data)
             val_preds = model.predict(X_val)
@@ -265,7 +265,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
         return sum(val_scores) / len(val_scores)
 
     study = optuna.create_study(direction='minimize')
-    study.optimize(objective_lower_bound_5, n_trials=100)
+    study.optimize(objective_lower_bound_5, n_trials=3)
 
     best_params_lower_bound = study.best_params
     best_params_lower_bound["objective"] = "quantile"
@@ -279,7 +279,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
     print(f"Best Params: {best_params_lower_bound}")
     print(f"Best Quantile Loss: {best_score_lower_bound}")
 
-    train_data = lgb.Dataset(X_train.drop(axis=1, columns=["group"]), label=y_train)
+    train_data = lgb.Dataset(X_train.drop(axis=1, columns=["group", "branchId"]), label=y_train)
 
     final_model_lower_bound_5 = lgb.train(best_params_lower_bound, train_data)
 
@@ -287,7 +287,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
     with open(model_path, 'wb') as file:
         pickle.dump(final_model_lower_bound_5, file)
 
-    y_pred_lower_5 = final_model_lower_bound_5.predict(X_test.drop(axis=1, columns=["group"]))
+    y_pred_lower_5 = final_model_lower_bound_5.predict(X_test.drop(axis=1, columns=["group", "branchId"]))
     print("Quantile Loss on Holdout: " + str(quantile_loss(y_test, y_pred_lower_5, 0.05)))
 
     def objective_lower_bound_10(trial):
@@ -323,7 +323,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
         return sum(val_scores) / len(val_scores)
 
     study = optuna.create_study(direction='minimize')
-    study.optimize(objective_lower_bound_10, n_trials=100)
+    study.optimize(objective_lower_bound_10, n_trials=3)
 
     best_params_lower_bound = study.best_params
     best_params_lower_bound["objective"] = "quantile"
@@ -337,7 +337,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
     print(f"Best Params: {best_params_lower_bound}")
     print(f"Best Quantile Loss: {best_score_lower_bound}")
 
-    train_data = lgb.Dataset(X_train.drop(axis=1, columns=["group"]), label=y_train)
+    train_data = lgb.Dataset(X_train.drop(axis=1, columns=["group", "branchId"]), label=y_train)
 
     final_model_lower_bound_10 = lgb.train(best_params_lower_bound, train_data)
 
@@ -345,7 +345,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
     with open(model_path, 'wb') as file:
         pickle.dump(final_model_lower_bound_10, file)
 
-    y_pred_lower_10 = final_model_lower_bound_10.predict(X_test.drop(axis=1, columns=["group"]))
+    y_pred_lower_10 = final_model_lower_bound_10.predict(X_test.drop(axis=1, columns=["group", "branchId"]))
     print("Quantile Loss on Holdout: " + str(quantile_loss(y_test, y_pred_lower_10, 0.1)))
 
     X_test_["prediction_median"] = y_pred_median
