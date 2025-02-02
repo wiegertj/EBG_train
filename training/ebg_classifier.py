@@ -29,6 +29,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
 
         group_to_drop = group1 + group2 + group3
         df = df.drop(columns=group_to_drop + ["norm_branch_length"], errors='ignore')
+        print(df.columns)
     """
     This functions trains the classifier to solve the binary classification problem between the class 0 
     (SBS value does not exceed threshold) and the class 1 (it does). 
