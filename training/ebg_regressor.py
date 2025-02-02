@@ -174,6 +174,9 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
         val_scores = []
 
         gkf = GroupKFold(n_splits=6)
+
+        print(X_train.drop(axis=1,columns=["group", "branchId"]).columns)
+        sys.exit()
         for train_idx, val_idx in gkf.split(X_train.drop(axis=1,columns=["group", "branchId"]), y_train, groups=X_train["group"]):
             X_train_tmp, y_train_tmp = X_train.drop(axis=1, columns=["group", "branchId"]).iloc[train_idx], y_train.iloc[train_idx]
             X_val, y_val = X_train.drop(axis=1,columns=["group", "branchId"]).iloc[val_idx], y_train.iloc[val_idx]
