@@ -115,7 +115,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         X_train = X_train.drop(axis=1, columns=['dataset'])
         X_test = X_test.drop(axis=1, columns=['dataset'])
 
-    print(X_train.drop(axis=1, columns=["group", "branchId"].columns))
+    print(X_train.drop(axis=1, columns=["group", "branchId"]).columns)
     """
         Train classifier using optuna and GroupKFold Cross Validation, make holdout prediction and evaluate
     """
