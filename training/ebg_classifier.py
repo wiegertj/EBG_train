@@ -55,8 +55,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         Load regressions models and make prediction for using them as features for the classifer
     """
     df_reg_pred = df.drop(columns=["dataset", "support", "branchId"], axis=1)
-    print(df_reg_pred.columns)
-    sys.exit()
+
     with open(os.path.join(os.path.pardir, "data", "processed", "final", "test_median_model_light.pkl"),
               'rb') as model_file:
         regression_median = pickle.load(model_file)
@@ -116,6 +115,7 @@ def light_gbm_classifier(threshold, rfe=False, rfe_feature_n=10, train_light=Tru
         X_train = X_train.drop(axis=1, columns=['dataset'])
         X_test = X_test.drop(axis=1, columns=['dataset'])
 
+    print(X_train.drop(axis=1, columns=["group", "branchId"].columns))
     """
         Train classifier using optuna and GroupKFold Cross Validation, make holdout prediction and evaluate
     """
