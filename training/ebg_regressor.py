@@ -89,7 +89,7 @@ def light_gbm_regressor(rfe=False, rfe_feature_n=20, train_light=False):
                   'skw_substitution_frequency']
 
         group_to_drop = group1 + group2 + group3
-        df = df.drop(columns=group_to_drop, errors='ignore')
+        df = df.drop(columns=group_to_drop + ["norm_branch_length"], errors='ignore')
 
     df.fillna(-1, inplace=True)
     df.replace([np.inf, -np.inf], -1, inplace=True)
